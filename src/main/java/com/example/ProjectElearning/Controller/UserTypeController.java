@@ -2,6 +2,7 @@ package com.example.ProjectElearning.Controller;
 
 import com.example.ProjectElearning.Model.UserType;
 import com.example.ProjectElearning.Service.UserTypeService;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +14,10 @@ public class UserTypeController {
     @Autowired
     private UserTypeService userTypeService;
 
+
     @GetMapping
     public List<UserType> getAllUserTypes() {
+
         return userTypeService.getAllUserTypes();
     }
 

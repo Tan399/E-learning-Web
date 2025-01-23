@@ -1,5 +1,6 @@
 package com.example.ProjectElearning.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class UserType {
 
     private String type;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "userType")
     private List<User> users;
 

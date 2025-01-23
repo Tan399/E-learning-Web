@@ -1,4 +1,5 @@
 package com.example.ProjectElearning.Model;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,8 @@ public class Payment {
 
     @Temporal(TemporalType.DATE)
     private Date paymentDate;
+
+
 
     @ManyToOne
     @JoinColumn(name = "userId")
