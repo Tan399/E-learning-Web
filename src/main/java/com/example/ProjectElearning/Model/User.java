@@ -1,6 +1,7 @@
 package com.example.ProjectElearning.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,12 +26,18 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role userTypee;
 
+
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "userTypeId")
     private UserType userType;
 
+
+
     @OneToMany(mappedBy = "user")
     private List<Enrollment> enrollments;
+
+
 
     @OneToMany(mappedBy = "user")
     private List<Payment> payments;
@@ -46,6 +53,9 @@ public class User {
         this.userType = userType;
 //        this.enrollments = enrollments;
 //        this.payments = payments;
+    }
+
+    public User() {
     }
 
 

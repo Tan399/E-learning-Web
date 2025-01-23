@@ -1,4 +1,5 @@
 package com.example.ProjectElearning.Model;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,8 @@ public class Enrollment {
     private Long id;
 
     private String status;
+
+
 
     @ManyToOne
     @JoinColumn(name = "userId")
