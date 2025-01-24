@@ -5,20 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import jakarta.validation.constraints.*;
 
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
 @Entity
 @Table(name = "courses")
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long courseid;
+
+    @NotBlank(message = "Course name is required")
+    @Size(min = 3, max = 100, message = "Course name must be between 3 and 100 characters")
     private String coursename;
     private String description;
     private String level;
+
+    @NotNull(message = "Instructor ID is required")
     private Long instructorid;
+
+    @NotBlank(message = "Category is required")
     private String category;
 
     public Course() {
