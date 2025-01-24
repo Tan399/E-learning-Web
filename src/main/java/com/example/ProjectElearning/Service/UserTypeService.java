@@ -1,5 +1,6 @@
 package com.example.ProjectElearning.Service;
 
+import com.example.ProjectElearning.Exception.ResourceNotFoundException;
 import com.example.ProjectElearning.Model.UserType;
 import com.example.ProjectElearning.Repository.UserTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class UserTypeService {
     }
 
     public  UserType getUserTypeById(Long id) {
-        return  userTypeRepository.findById(id).orElse(null);
+        return  userTypeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("UserType not found with id: " + id));
     }
 
     public UserType createUserType(UserType userType) {

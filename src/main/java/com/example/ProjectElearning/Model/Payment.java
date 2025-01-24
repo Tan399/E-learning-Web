@@ -1,4 +1,5 @@
 package com.example.ProjectElearning.Model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class Payment {
     private Date paymentDate;
 
 
-
+@JsonBackReference("user-payment")
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;

@@ -1,4 +1,5 @@
 package com.example.ProjectElearning.Model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,11 +19,13 @@ public class Enrollment {
     private String status;
 
 
-
+    @JsonBackReference("user-enrollments")
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
 
+
+    @JsonBackReference("user-payment")
     @ManyToOne
     @JoinColumn(name = "courseId")
     private Course course;
