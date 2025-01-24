@@ -21,14 +21,14 @@ public class UserType {
 
     private String type;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "userType")
+    @JsonManagedReference("user-userType")
+    @OneToMany(mappedBy = "userType",cascade = CascadeType.ALL)
     private List<User> users;
 
     public UserType(Long id, String type) {
         this.id = id;
         this.type = type;
-        this.users = users;
+
     }
 
     public UserType() {

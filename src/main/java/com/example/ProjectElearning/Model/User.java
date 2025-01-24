@@ -2,57 +2,71 @@ package com.example.ProjectElearning.Model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
+
 @Entity
-@Table(name = "users")
+@Table(name = "users",uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userid;
+
+
     private String firstname;
+
+
     private String lastname;
+
+
     private String email;
+
+
     private String password;
+
+
+
     private String gender;
-    @Enumerated(value = EnumType.STRING)
-    private Role userTypee;
 
 
-    @JsonBackReference
+
+    @JsonBackReference("user-userType")
     @ManyToOne
     @JoinColumn(name = "userTypeId")
     private UserType userType;
 
 
 
-    @OneToMany(mappedBy = "user")
+    @JsonManagedReference("user-enrollments")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Enrollment> enrollments;
 
 
 
-    @OneToMany(mappedBy = "user")
+    @JsonManagedReference("user-payment")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Payment> payments;
 
-    public User(Long userid, String firstname, String lastname, String email, String password, String gender, Role userTypee, UserType userType) {
+    public User(Long userid, String firstname, String lastname, String email, String password, String gender) {
         this.userid = userid;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.gender = gender;
-        this.userTypee = userTypee;
-        this.userType = userType;
-//        this.enrollments = enrollments;
-//        this.payments = payments;
+
+
+
     }
 
     public User() {
@@ -107,13 +121,13 @@ public class User {
         this.gender = gender;
     }
 
-    public Role getUserTypee() {
-        return userTypee;
-    }
-
-    public void setUserTypee(Role userTypee) {
-        this.userTypee = userTypee;
-    }
+//    public Role getUserTypee() {
+//        return userTypee;
+//    }
+//
+//    public void setUserTypee(Role userTypee) {
+//        this.userTypee = userTypee;
+//    }
 
     public UserType getUserType() {
         return userType;

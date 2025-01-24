@@ -1,11 +1,14 @@
 package com.example.ProjectElearning.Controller;
 
 import com.example.ProjectElearning.Model.User;
+import com.example.ProjectElearning.Model.UserDTO;
 import com.example.ProjectElearning.Model.UserType;
 import com.example.ProjectElearning.Repository.UserRepository;
 import com.example.ProjectElearning.Repository.UserTypeRepository;
 import com.example.ProjectElearning.Service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,50 +29,59 @@ public class UserController {
 
 
     @PostMapping("/{id}")
-    public ResponseEntity<User> createUser(@PathVariable Long id,@RequestBody User user) {
-        UserType userType=new UserType();
-        userType.setId(id);
-        if(id==1){
-            userType.setType("User");
-        }else{
-            System.out.println("entered");
-            userType.setType("Instructor");
-        }
-            User user1=userService.createUser(user);
+    public ResponseEntity<UserDTO> createUser(@PathVariable Long id,@Valid @RequestBody UserDTO user) {
+        UserType userType=userTypeRepository.findById(id).get();
+        User user1=new User();
+        user1.setFirstname(user.getFirstname());
+        user1.setLastname(user.getLastname());
+        user1.setEmail(user.getEmail());
+        user1.setPassword(user.getPassword());
+        user1.setGender(user.getGender());
         user1.setUserType(userType);
-        List<User> users=userTypeRepository.findById(id).get().getUsers();
+        List<User> users=userType.getUsers();
         users.add(user1);
         userType.setUsers(users);
-        userRepository.save(user1);
-        return ResponseEntity.ok(user1);
+
+        userTypeRepository.save(userType);
+
+        return  new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<User> > getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        if (users.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @GetMapping("/email/{email}")
-    public User getUserByEmail(@PathVariable String email) {
-        return userService.getUserByEmail(email);
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+    public  ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         user.setUserid(id);
-        return userService.updateUser(user);
+        User updatedUser = userService.updateUser(user);
+        return updatedUser != null ? new ResponseEntity<>(updatedUser, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser (id);
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) {
+
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
 }

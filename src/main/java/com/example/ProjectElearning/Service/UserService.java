@@ -1,12 +1,14 @@
 package com.example.ProjectElearning.Service;
 
 
+import com.example.ProjectElearning.Exception.ResourceNotFoundException;
 import com.example.ProjectElearning.Model.User;
 import com.example.ProjectElearning.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -24,13 +26,14 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return Optional.ofNullable(userRepository.findByEmail(email))
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
     }
-
 
     public User updateUser(User user) {
         User existingUser  = getUserById(user.getUserid());
