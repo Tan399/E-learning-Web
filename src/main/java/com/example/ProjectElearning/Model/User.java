@@ -4,48 +4,34 @@ package com.example.ProjectElearning.Model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
+//@Data
+//@AllArgsConstructor
+//@NoArgsConstructor
 @Entity
-@Table(name = "users",uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@Table(name = "users")
 public class User {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userid;
-
-
     private String firstname;
-
-
     private String lastname;
-
-
     private String email;
-
-
     private String password;
-
-
-
     private String gender;
-
+//    @Enumerated(value = EnumType.STRING)
+//    private Role userTypee;
 
 
     @JsonBackReference("user-userType")
     @ManyToOne
     @JoinColumn(name = "userTypeId")
     private UserType userType;
-
-
 
     @JsonManagedReference("user-enrollments")
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
@@ -57,6 +43,18 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Payment> payments;
 
+
+    @JsonManagedReference("user-courses")
+    @OneToMany(mappedBy = "instructorId",cascade = CascadeType.ALL)
+    private List<Course> courses;
+
+
+    @JsonManagedReference("user-course-feedback")
+    @OneToMany(mappedBy = "userId",cascade = CascadeType.ALL)
+    private List<CourseFeedback> courseFeedbacks;
+
+
+
     public User(Long userid, String firstname, String lastname, String email, String password, String gender) {
         this.userid = userid;
         this.firstname = firstname;
@@ -64,9 +62,10 @@ public class User {
         this.email = email;
         this.password = password;
         this.gender = gender;
-
-
-
+//        this.userTypee = userTypee;
+//        this.userType = userType;
+//        this.enrollments = enrollments;
+//        this.payments = payments;
     }
 
     public User() {
@@ -151,5 +150,21 @@ public class User {
 
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public List<CourseFeedback> getCourseFeedbacks() {
+        return courseFeedbacks;
+    }
+
+    public void setCourseFeedbacks(List<CourseFeedback> courseFeedbacks) {
+        this.courseFeedbacks = courseFeedbacks;
     }
 }

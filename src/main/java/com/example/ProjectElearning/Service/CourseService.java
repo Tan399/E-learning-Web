@@ -38,8 +38,8 @@ public class CourseService {
             existingCourse.setCoursename(course.getCoursename());
             existingCourse.setDescription(course.getDescription());
             existingCourse.setLevel(course.getLevel());
-            existingCourse.setInstructorid(course.getInstructorid());
-            existingCourse.setCategory(course.getCategory());
+            existingCourse.setInstructorId(course.getInstructorId());
+            existingCourse.setCategoryId(course.getCategoryId());
             return courseRepository.save(existingCourse);
         } else {
             return null;
