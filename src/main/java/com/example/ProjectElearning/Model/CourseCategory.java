@@ -1,5 +1,8 @@
 package com.example.ProjectElearning.Model;
 
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -11,7 +14,10 @@ public class CourseCategory {
 
     private String title;
 
-    @OneToMany(mappedBy = "category")
+
+    @JsonManagedReference("course-category")
+    @OneToMany(mappedBy = "categoryId",cascade = CascadeType.ALL)
+
     private List<Course> courses;
 
     public CourseCategory(String title, Long id) {

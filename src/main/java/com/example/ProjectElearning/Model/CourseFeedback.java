@@ -2,8 +2,14 @@ package com.example.ProjectElearning.Model;
 
 
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
+
 
 
 @Entity
@@ -17,17 +23,25 @@ public class CourseFeedback {
     @Column(nullable = false, length = 100)
     private String feedback;
 
-    @Column(nullable = false)
-    private Long courseId;
 
-    @Column(nullable = false)
-    private Long userId;
 
-    public CourseFeedback(Long feedBackId, String feedback, Long courseId, Long userId) {
+    @JsonBackReference("course-feedback")
+    @ManyToOne
+    @JoinColumn(name = "courseId")
+    private Course courseId;
+
+
+    @JsonBackReference("user-course-feedback")
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User userId;
+
+    public CourseFeedback(Long feedBackId, String feedback) {
         this.feedBackId = feedBackId;
         this.feedback = feedback;
-        this.courseId = courseId;
-        this.userId = userId;
+
+
+
     }
 
     public CourseFeedback() {
@@ -49,20 +63,38 @@ public class CourseFeedback {
         this.feedback = feedback;
     }
 
-    public Long getCourseId() {
+    public Course getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(Long courseId) {
+    public void setCourseId(Course courseId) {
         this.courseId = courseId;
     }
 
-    public Long getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
+
+
+//    public Course getCourse() {
+//        return course;
+//    }
+//
+//    public void setCourse(Course course) {
+//        this.course = course;
+//    }
+//
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+
 }
 
