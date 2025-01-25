@@ -5,7 +5,6 @@ import com.example.ProjectElearning.Model.*;
 import com.example.ProjectElearning.Service.CourseFeedbackService;
 import com.example.ProjectElearning.Service.CourseService;
 import com.example.ProjectElearning.Service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
 public class CourseFeedbackController {
 
     @Autowired
-    private  CourseFeedbackService courseFeedbackService;
+    private CourseFeedbackService courseFeedbackService;
     @Autowired
     private UserService userService;
 

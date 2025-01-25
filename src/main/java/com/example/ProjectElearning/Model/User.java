@@ -45,6 +45,10 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Payment> payments;
 
+    @JsonManagedReference("user-attempt")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<QuizAttempt> quizAttempts;
+
 
     @JsonManagedReference("user-courses")
     @OneToMany(mappedBy = "instructorId",cascade = CascadeType.ALL)
@@ -168,5 +172,13 @@ public class User {
 
     public void setCourseFeedbacks(List<CourseFeedback> courseFeedbacks) {
         this.courseFeedbacks = courseFeedbacks;
+    }
+
+    public List<QuizAttempt> getQuizAttempts() {
+        return quizAttempts;
+    }
+
+    public void setQuizAttempts(List<QuizAttempt> quizAttempts) {
+        this.quizAttempts = quizAttempts;
     }
 }
