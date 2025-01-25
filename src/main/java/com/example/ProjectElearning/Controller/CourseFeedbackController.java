@@ -1,8 +1,10 @@
 package com.example.ProjectElearning.Controller;
 
 
-import com.example.ProjectElearning.Model.CourseFeedback;
+import com.example.ProjectElearning.Model.*;
 import com.example.ProjectElearning.Service.CourseFeedbackService;
+import com.example.ProjectElearning.Service.CourseService;
+import com.example.ProjectElearning.Service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/coursefeedback")
@@ -17,44 +20,86 @@ public class CourseFeedbackController {
 
     @Autowired
     private  CourseFeedbackService courseFeedbackService;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CourseService courseService;
 
 
 
-//    public CourseFeedbackController(CourseFeedbackService ) {
-//        this.courseFeedbackService = courseFeedbackService;
-//    }
 
 
     @GetMapping
-    public ResponseEntity<List<CourseFeedback>> getAllFeedbacks() {
-        List<CourseFeedback> feedbacks = courseFeedbackService.getAllFeedbacks();
+    public ResponseEntity<List<CourseFeedbackResponseDTO>> getAllFeedbacks() {
+        List<CourseFeedbackResponseDTO> feedbacks = courseFeedbackService.getAllFeedbacks().stream()
+                .map((feedback) -> {
+                    CourseFeedbackResponseDTO dto = new CourseFeedbackResponseDTO();
+                    dto.setFeedback(feedback.getFeedback());
+                    dto.setCourseId(feedback.getCourseId().getCourseid());
+                    dto.setUserId(feedback.getUserId().getUserid());
+                    dto.setId(feedback.getFeedBackId());
+                    return dto;
+                }).collect(Collectors.toList());
+
         return new ResponseEntity<>(feedbacks, HttpStatus.OK);
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<CourseFeedback> getFeedbackById(@PathVariable Long id) {
+    public ResponseEntity<CourseFeedbackResponseDTO> getFeedbackById(@PathVariable Long id) {
         CourseFeedback feedback = courseFeedbackService.getFeedbackById(id);
-        return new ResponseEntity<>(feedback, HttpStatus.OK);
+        CourseFeedbackResponseDTO dto=new CourseFeedbackResponseDTO();
+        dto.setFeedback(feedback.getFeedback());
+        dto.setCourseId(feedback.getCourseId().getCourseid());
+        dto.setUserId(feedback.getUserId().getUserid());
+        dto.setId(feedback.getFeedBackId());
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
 
     @GetMapping("/course/{courseId}")
-    public ResponseEntity<List<CourseFeedback>> getFeedbacksByCourseId(@PathVariable Long courseId) {
-        List<CourseFeedback> feedbacks = courseFeedbackService.getFeedbacksByCourseId(courseId);
+    public ResponseEntity<List<CourseFeedbackResponseDTO>> getFeedbacksByCourseId(@PathVariable Long courseId) {
+        List<CourseFeedbackResponseDTO> feedbacks = courseFeedbackService.getFeedbacksByCourseId(courseId).stream()
+                .map((feedback)->{
+                    CourseFeedbackResponseDTO dto=new CourseFeedbackResponseDTO();
+                    dto.setFeedback(feedback.getFeedback());
+                    dto.setCourseId(feedback.getCourseId().getCourseid());
+                    dto.setUserId(feedback.getUserId().getUserid());
+                    dto.setId(feedback.getFeedBackId());
+                    return dto;
+                }).collect(Collectors.toList());
+
         return new ResponseEntity<>(feedbacks, HttpStatus.OK);
     }
 
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<CourseFeedback>> getFeedbacksByUserId(@PathVariable Long userId) {
-        List<CourseFeedback> feedbacks = courseFeedbackService.getFeedbacksByUserId(userId);
+    public ResponseEntity<List<CourseFeedbackResponseDTO>> getFeedbacksByUserId(@PathVariable Long userId) {
+        List<CourseFeedbackResponseDTO> feedbacks = courseFeedbackService.getFeedbacksByUserId(userId).stream()
+                .map((feedback)->{
+                    CourseFeedbackResponseDTO dto=new CourseFeedbackResponseDTO();
+                    dto.setFeedback(feedback.getFeedback());
+                    dto.setCourseId(feedback.getCourseId().getCourseid());
+                    dto.setUserId(feedback.getUserId().getUserid());
+                    dto.setId(feedback.getFeedBackId());
+                    return dto;
+                }).collect(Collectors.toList());
+
         return new ResponseEntity<>(feedbacks, HttpStatus.OK);
     }
 
 
     @PostMapping
-    public ResponseEntity<CourseFeedback> createFeedback(@Valid @RequestBody CourseFeedback courseFeedback) {
+    public ResponseEntity<CourseFeedback> createFeedback( @RequestBody CourseFeedbackDTO courseFeedbackDTO) {
+        CourseFeedback courseFeedback=new CourseFeedback();
+        courseFeedback.setFeedback(courseFeedbackDTO.getFeedback());
+        User user=userService.getUserById(courseFeedbackDTO.getUserId());
+        Course course=courseService.getCourseById(courseFeedbackDTO.getCourseId());
+        courseFeedback.setCourseId(course);
+        courseFeedback.setUserId(user);
+        user.getCourseFeedbacks().add(courseFeedback);
+        course.getCourseFeedbackList().add(courseFeedback);
         CourseFeedback createdFeedback = courseFeedbackService.createFeedback(courseFeedback);
         return new ResponseEntity<>(createdFeedback, HttpStatus.CREATED);
     }
