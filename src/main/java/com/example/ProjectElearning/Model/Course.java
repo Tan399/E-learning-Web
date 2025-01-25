@@ -1,52 +1,118 @@
 package com.example.ProjectElearning.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import jakarta.validation.constraints.*;
+
 import java.util.List;
 
 @Entity
-public class CourseCategory {
+@Table(name = "courses")
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long courseid;
 
-    private String title;
 
-    @JsonManagedReference("course-category")
-    @OneToMany(mappedBy = "categoryId",cascade = CascadeType.ALL)
-    private List<Course> courses;
+    private String coursename;
+    private String description;
+    private String level;
 
-    public CourseCategory(String title, Long id) {
-        this.title = title;
-        this.id = id;
+
+    @JsonBackReference("user-courses")
+    @ManyToOne
+    @JoinColumn(name = "instructorId")
+    private User instructorId;
+
+
+    @JsonManagedReference("course-feedback")
+    @OneToMany(mappedBy = "courseId",cascade = CascadeType.ALL)
+    private List<CourseFeedback> courseFeedbackList;
+
+    @JsonManagedReference("course-enrollments")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private List<Enrollment> enrollments;
+
+    @JsonManagedReference("course-payment")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private List<Payment> payments;
+
+    @JsonBackReference("course-category")
+    @ManyToOne
+    @JoinColumn(name = "CategoryId")
+    private CourseCategory categoryId;
+
+    public Course() {
     }
 
-    public CourseCategory() {
+    public Course(Long courseid, String coursename, String description, String level) {
+        this.courseid = courseid;
+        this.coursename = coursename;
+        this.description = description;
+        this.level = level;
+
+
+    }
+
+    public Long getCourseid() {
+        return courseid;
+    }
+
+    public void setCourseid(Long courseid) {
+        this.courseid = courseid;
+    }
+
+    public String getCoursename() {
+        return coursename;
+    }
+
+    public void setCoursename(String coursename) {
+        this.coursename = coursename;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 
 
-    public Long getId() {
-        return id;
+    public User getInstructorId() {
+        return instructorId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setInstructorId(User instructorId) {
+        this.instructorId = instructorId;
     }
 
-    public String getTitle() {
-        return title;
+    public CourseCategory getCategoryId() {
+        return categoryId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCategoryId(CourseCategory categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public List<Course> getCourses() {
-        return courses;
+    public List<CourseFeedback> getCourseFeedbackList() {
+        return courseFeedbackList;
     }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
+    public void setCourseFeedbackList(List<CourseFeedback> courseFeedbackList) {
+        this.courseFeedbackList = courseFeedbackList;
     }
 }
-
