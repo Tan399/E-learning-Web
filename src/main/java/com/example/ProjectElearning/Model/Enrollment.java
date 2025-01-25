@@ -25,7 +25,7 @@ public class Enrollment {
     private User user;
 
 
-    @JsonBackReference("user-payment")
+    @JsonBackReference("course-enrollments")
     @ManyToOne
     @JoinColumn(name = "courseId")
     private Course course;

@@ -42,10 +42,20 @@ public class Course {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Payment> payments;
 
+
+    @JsonManagedReference("course-quiz")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private List<Quiz> quizzes;
+
+
+
     @JsonBackReference("course-category")
     @ManyToOne
     @JoinColumn(name = "CategoryId")
     private CourseCategory categoryId;
+
+
+
 
     public Course() {
     }
@@ -115,4 +125,32 @@ public class Course {
     public void setCourseFeedbackList(List<CourseFeedback> courseFeedbackList) {
         this.courseFeedbackList = courseFeedbackList;
     }
+
+    public List<Enrollment> getEnrollments() {
+        return enrollments;
+    }
+
+    public void setEnrollments(List<Enrollment> enrollments) {
+        this.enrollments = enrollments;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public List<Quiz> getQuizzes() {
+        return quizzes;
+    }
+
+    public void setQuizzes(List<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
+
+
+
+
 }

@@ -60,7 +60,7 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CourseResponseDTO> getCourseById(@PathVariable Long id) {
+    public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
         Course existingCourse = courseService.getCourseById(id);
         CourseResponseDTO courseDTO=new CourseResponseDTO();
         courseDTO.setCoursename(existingCourse.getCoursename());
@@ -69,7 +69,7 @@ public class CourseController {
         courseDTO.setInstructorId(existingCourse.getInstructorId().getUserid());
         courseDTO.setCategoryId(existingCourse.getCategoryId().getId());
         courseDTO.setCourseid(existingCourse.getCourseid());
-        return new ResponseEntity<>(courseDTO, HttpStatus.OK);
+        return new ResponseEntity<>(existingCourse, HttpStatus.OK);
     }
 
     @GetMapping("/coursename/{coursename}")
