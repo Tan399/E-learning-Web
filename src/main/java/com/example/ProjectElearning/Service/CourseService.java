@@ -1,6 +1,7 @@
 package com.example.ProjectElearning.Service;
 
 
+import com.example.ProjectElearning.Exception.ResourceNotFoundException;
 import com.example.ProjectElearning.Model.Course;
 import com.example.ProjectElearning.Repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ public class CourseService {
     }
 
     public Course getCourseById(Long id) {
-        return courseRepository.findById(id).orElse(null);
+
+        return courseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + id));
     }
 
     public Course getCourseByCourseName(String coursename) {
@@ -38,6 +40,7 @@ public class CourseService {
             existingCourse.setCoursename(course.getCoursename());
             existingCourse.setDescription(course.getDescription());
             existingCourse.setLevel(course.getLevel());
+
             existingCourse.setInstructorId(course.getInstructorId());
             existingCourse.setCategoryId(course.getCategoryId());
             return courseRepository.save(existingCourse);

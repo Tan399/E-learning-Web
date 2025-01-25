@@ -21,7 +21,7 @@ public class UserTypeController {
     @GetMapping
     public ResponseEntity<List<UserType>> getAllUserTypes() {
 
-      List<UserType> userTypes= userTypeService.getAllUserTypes();
+        List<UserType> userTypes= userTypeService.getAllUserTypes();
 
         if (userTypes.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

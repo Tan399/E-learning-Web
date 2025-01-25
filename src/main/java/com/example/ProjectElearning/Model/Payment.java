@@ -25,7 +25,13 @@ public class Payment {
     private Date paymentDate;
 
 
-@JsonBackReference("user-payment")
+    @JsonBackReference("course-payment")
+    @ManyToOne
+    @JoinColumn(name = "courseId")
+    private Course course;
+
+
+    @JsonBackReference("user-payment")
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
@@ -71,5 +77,13 @@ public class Payment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

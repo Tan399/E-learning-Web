@@ -1,5 +1,6 @@
 package com.example.ProjectElearning.Service;
 
+import com.example.ProjectElearning.Exception.ResourceNotFoundException;
 import com.example.ProjectElearning.Model.Enrollment;
 import com.example.ProjectElearning.Repository.EnrollmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,7 @@ public class EnrollmentService {
     }
 
     public Enrollment getEnrollmentById(Long id) {
-        return enrollmentRepository.findById(id).orElse(null);
-    }
+        return enrollmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Enrollment not found with id: " + id));}
 
     public Enrollment createEnrollment(Enrollment enrollment) {
         return  enrollmentRepository.save(enrollment);

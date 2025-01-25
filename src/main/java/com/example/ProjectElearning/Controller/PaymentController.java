@@ -1,8 +1,8 @@
 package com.example.ProjectElearning.Controller;
 
-import com.example.ProjectElearning.Model.Payment;
-import com.example.ProjectElearning.Model.PaymentDTO;
-import com.example.ProjectElearning.Model.User;
+import com.example.ProjectElearning.Exception.ResourceNotFoundException;
+import com.example.ProjectElearning.Model.*;
+import com.example.ProjectElearning.Service.CourseService;
 import com.example.ProjectElearning.Service.PaymentService;
 import com.example.ProjectElearning.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/payments")
@@ -21,19 +22,37 @@ public class PaymentController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public ResponseEntity<List<Payment>> getAllPayments() {
+    @Autowired
+    private CourseService courseService;
 
-        return ResponseEntity.ok(paymentService.getAllPayments());
+    @GetMapping
+    public ResponseEntity<List<PaymentResponseDTO>> getAllPayments() {
+        List<PaymentResponseDTO> dtos=paymentService.getAllPayments().stream().map((payment)->{
+            PaymentResponseDTO paymentDTO=new PaymentResponseDTO();
+
+            paymentDTO.setPaymentDate(payment.getPaymentDate());
+            paymentDTO.setAmount(payment.getAmount());
+            paymentDTO.setUserId(payment.getUser().getUserid());
+            paymentDTO.setUserId(payment.getId());
+            paymentDTO.setCourseId(payment.getCourse().getCourseid());
+            paymentDTO.setId(payment.getId());
+            return paymentDTO;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PaymentDTO> getPaymentById(@PathVariable Long id) {
+    public ResponseEntity<PaymentResponseDTO> getPaymentById(@PathVariable Long id) {
         Payment payment=paymentService.getPaymentById(id);
-        PaymentDTO paymentDTO=new PaymentDTO();
+        PaymentResponseDTO paymentDTO=new PaymentResponseDTO();
+
         paymentDTO.setPaymentDate(payment.getPaymentDate());
         paymentDTO.setAmount(payment.getAmount());
         paymentDTO.setUserId(payment.getUser().getUserid());
+        paymentDTO.setUserId(payment.getId());
+        paymentDTO.setCourseId(payment.getCourse().getCourseid());
+        paymentDTO.setId(payment.getId());
         return ResponseEntity.ok(paymentDTO);
     }
 
@@ -43,9 +62,11 @@ public class PaymentController {
         payment.setPaymentDate(paymentDTO.getPaymentDate());
         payment.setAmount(paymentDTO.getAmount());
         User user=userService.getUserById(paymentDTO.getUserId());
+        Course course=courseService.getCourseById(paymentDTO.getCourseId());
         payment.setUser(user);
+        payment.setCourse(course);
         user.getPayments().add(payment);
-        userService.updateUser(user);
+        paymentService.createPayment(payment);
 
 
 
