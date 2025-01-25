@@ -2,6 +2,7 @@ package com.example.ProjectElearning.Service;
 
 
 
+import com.example.ProjectElearning.Exception.ResourceNotFoundException;
 import com.example.ProjectElearning.Model.CourseCategory;
 import com.example.ProjectElearning.Repository.CourseCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class CourseCategoryService {
 
 
     public CourseCategory getCategoryById(Long id) {
-        return courseCategoryRepository.findById(id).orElse(null);
+        return courseCategoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
 

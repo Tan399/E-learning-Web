@@ -3,6 +3,8 @@ package com.example.ProjectElearning.Controller;
 
 import com.example.ProjectElearning.Model.CourseFeedback;
 import com.example.ProjectElearning.Service.CourseFeedbackService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +15,14 @@ import java.util.List;
 @RequestMapping("/api/coursefeedback")
 public class CourseFeedbackController {
 
-    private final CourseFeedbackService courseFeedbackService;
+    @Autowired
+    private  CourseFeedbackService courseFeedbackService;
 
-    public CourseFeedbackController(CourseFeedbackService courseFeedbackService) {
-        this.courseFeedbackService = courseFeedbackService;
-    }
+
+
+//    public CourseFeedbackController(CourseFeedbackService ) {
+//        this.courseFeedbackService = courseFeedbackService;
+//    }
 
 
     @GetMapping
@@ -49,7 +54,7 @@ public class CourseFeedbackController {
 
 
     @PostMapping
-    public ResponseEntity<CourseFeedback> createFeedback(@RequestBody CourseFeedback courseFeedback) {
+    public ResponseEntity<CourseFeedback> createFeedback(@Valid @RequestBody CourseFeedback courseFeedback) {
         CourseFeedback createdFeedback = courseFeedbackService.createFeedback(courseFeedback);
         return new ResponseEntity<>(createdFeedback, HttpStatus.CREATED);
     }

@@ -1,9 +1,6 @@
 package com.example.ProjectElearning.Controller;
 
-import com.example.ProjectElearning.Model.Course;
-import com.example.ProjectElearning.Model.Enrollment;
-import com.example.ProjectElearning.Model.EnrollmentDTO;
-import com.example.ProjectElearning.Model.User;
+import com.example.ProjectElearning.Model.*;
 import com.example.ProjectElearning.Service.CourseService;
 import com.example.ProjectElearning.Service.EnrollmentService;
 import com.example.ProjectElearning.Service.UserService;
@@ -27,19 +24,33 @@ public class EnrollmentController {
     private CourseService courseService;
 
     @GetMapping
-    public List<Enrollment> getAllEnrollments() {
+    public ResponseEntity<List<EnrollmentResponseDTO>> getAllEnrollments() {
 
-        return enrollmentService.getAllEnrollments();
+        List<Enrollment> enrollments = enrollmentService.getAllEnrollments();
+
+        // Map Enrollment to EnrollmentDTO
+        List<EnrollmentResponseDTO> enrollmentDTOs = enrollments.stream().map(enrollment -> {
+            EnrollmentResponseDTO dto = new EnrollmentResponseDTO();
+            dto.setId(enrollment.getId());
+            dto.setStatus(enrollment.getStatus());
+            dto.setUserId(enrollment.getUser().getUserid());
+            dto.setCourseId(enrollment.getCourse().getCourseid());
+            return dto;
+        }).toList();
+
+        return ResponseEntity.ok(enrollmentDTOs);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EnrollmentDTO> getEnrollmentById(@PathVariable Long id) {
-        EnrollmentDTO enrollmentDTO=new EnrollmentDTO();
+    public ResponseEntity<EnrollmentResponseDTO> getEnrollmentById(@PathVariable Long id) {
+
         Enrollment enrollment=enrollmentService.getEnrollmentById(id);
-        enrollmentDTO.setCourseId(enrollment.getCourse().getCourseid());
-        enrollmentDTO.setUserId(enrollment.getUser().getUserid());
-        enrollmentDTO.setStatus(enrollment.getStatus());
-        return ResponseEntity.ok(enrollmentDTO);
+        EnrollmentResponseDTO dto = new EnrollmentResponseDTO();
+        dto.setId(enrollment.getId());
+        dto.setStatus(enrollment.getStatus());
+        dto.setUserId(enrollment.getUser().getUserid());
+        dto.setCourseId(enrollment.getCourse().getCourseid());
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
@@ -51,7 +62,9 @@ public class EnrollmentController {
         enrollment.setCourse(course);
         enrollment.setUser(user);
         user.getEnrollments().add(enrollment);
-        userService.updateUser(user);
+
+
+
 
         return new ResponseEntity<Enrollment>( enrollmentService.createEnrollment(enrollment), HttpStatus.CREATED);
     }

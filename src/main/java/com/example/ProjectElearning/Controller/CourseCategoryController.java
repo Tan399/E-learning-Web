@@ -4,6 +4,8 @@ package com.example.ProjectElearning.Controller;
 
 
 import com.example.ProjectElearning.Model.CourseCategory;
+import com.example.ProjectElearning.Model.CourseCategoryDTO;
+import com.example.ProjectElearning.Model.UserType;
 import com.example.ProjectElearning.Service.CourseCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,11 +19,9 @@ import java.util.List;
 public class CourseCategoryController {
 
     @Autowired
-    private final CourseCategoryService courseCategoryService;
+    private  CourseCategoryService courseCategoryService;
 
-    public CourseCategoryController(CourseCategoryService courseCategoryService) {
-        this.courseCategoryService = courseCategoryService;
-    }
+
 
 
     @GetMapping
@@ -39,9 +39,12 @@ public class CourseCategoryController {
 
 
     @PostMapping
-    public ResponseEntity<CourseCategory> createCategory(@RequestBody CourseCategory courseCategory) {
-        CourseCategory createdCategory = courseCategoryService.createCategory(courseCategory);
-        return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
+    public ResponseEntity<CourseCategory> createCategory(@RequestBody CourseCategoryDTO courseCategoryDTO) {
+
+
+        CourseCategory courseCategory=new CourseCategory();
+        courseCategory.setTitle(courseCategoryDTO.getTitle());
+        return new  ResponseEntity<CourseCategory>(courseCategoryService.createCategory(courseCategory),HttpStatus.CREATED);
     }
 
 

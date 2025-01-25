@@ -1,37 +1,32 @@
 package com.example.ProjectElearning.Model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-
 import java.util.Date;
 
-public class PaymentDTO {
+public class PaymentResponseDTO {
+    private Long id;
     private Double amount;
-
-
-
-    @Temporal(TemporalType.DATE)
     private Date paymentDate;
-
     private Long courseId;
-
-
-
     private Long userId;
 
-    public PaymentDTO() {
-    }
-
-    public PaymentDTO(Double amount, Date paymentDate, Long userId) {
-
+    public PaymentResponseDTO(Long id, Double amount, Date paymentDate, Long courseId, Long userId) {
+        this.id = id;
         this.amount = amount;
         this.paymentDate = paymentDate;
+        this.courseId = courseId;
         this.userId = userId;
     }
 
+    public PaymentResponseDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Double getAmount() {
         return amount;
@@ -49,19 +44,19 @@ public class PaymentDTO {
         this.paymentDate = paymentDate;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public Long getCourseId() {
         return courseId;
     }
 
     public void setCourseId(Long courseId) {
         this.courseId = courseId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

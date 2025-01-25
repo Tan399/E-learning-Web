@@ -30,6 +30,8 @@ public class UserController {
 
     @PostMapping("/{id}")
     public ResponseEntity<UserDTO> createUser(@PathVariable Long id,@Valid @RequestBody UserDTO user) {
+
+
         UserType userType=userTypeRepository.findById(id).get();
         User user1=new User();
         user1.setFirstname(user.getFirstname());
@@ -70,9 +72,9 @@ public class UserController {
 
 
     @PutMapping("/{id}")
-    public  ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        user.setUserid(id);
-        User updatedUser = userService.updateUser(user);
+    public  ResponseEntity<User> updateUser(@PathVariable Long id,@Valid @RequestBody UserDTO userDTO) {
+
+        User updatedUser = userService.updateUser(id,userDTO);
         return updatedUser != null ? new ResponseEntity<>(updatedUser, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

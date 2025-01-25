@@ -15,11 +15,9 @@ public class CourseFeedbackService {
 
 
     @Autowired
-    private final CourseFeedbackRepository courseFeedbackRepository;
+    private  CourseFeedbackRepository courseFeedbackRepository;
 
-    public CourseFeedbackService(CourseFeedbackRepository courseFeedbackRepository) {
-        this.courseFeedbackRepository = courseFeedbackRepository;
-    }
+
 
 
     public List<CourseFeedback> getAllFeedbacks() {

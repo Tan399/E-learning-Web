@@ -3,6 +3,7 @@ package com.example.ProjectElearning.Service;
 
 import com.example.ProjectElearning.Exception.ResourceNotFoundException;
 import com.example.ProjectElearning.Model.User;
+import com.example.ProjectElearning.Model.UserDTO;
 import com.example.ProjectElearning.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,12 @@ public class UserService {
 
 
     public List<User> getAllUsers() {
+
         return userRepository.findAll();
     }
 
     public User getUserById(Long id) {
+        System.out.println("3");
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
@@ -35,15 +38,16 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
     }
 
-    public User updateUser(User user) {
-        User existingUser  = getUserById(user.getUserid());
+
+    public User updateUser(Long id,UserDTO userDTO) {
+        User existingUser  = getUserById(id);
         if (existingUser  != null) {
-            existingUser .setFirstname(user.getFirstname());
-            existingUser .setLastname(user.getLastname());
-            existingUser .setEmail(user.getEmail());
-            existingUser .setPassword(user.getPassword());
-            existingUser .setGender(user.getGender());
-            existingUser .setUserType(user.getUserType());
+            existingUser .setFirstname(userDTO.getFirstname());
+            existingUser .setLastname(userDTO.getLastname());
+            existingUser .setEmail(userDTO.getEmail());
+            existingUser .setPassword(userDTO.getPassword());
+            existingUser .setGender(userDTO.getGender());
+
             return userRepository.save(existingUser );
         } else {
             return null;
