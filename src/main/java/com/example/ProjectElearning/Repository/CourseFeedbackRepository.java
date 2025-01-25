@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.example.ProjectElearning.Model.CourseFeedback;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
-
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,16 +16,14 @@ public interface CourseFeedbackRepository extends JpaRepository<CourseFeedback, 
     CourseFeedback findByFeedBackId(Long feedBackId);
 
 
-
-    @Query("SELECT cf FROM CourseFeedback cf WHERE cf.courseId = :courseid")
+    @Query("SELECT cf FROM CourseFeedback cf WHERE cf.courseId.courseid = :courseid")
     List<CourseFeedback> findByCourseId(@Param("courseid") Long courseid);
 
 
 
 
-    @Query("SELECT cf FROM CourseFeedback cf WHERE cf.userId = :userid")
+    @Query("SELECT cf FROM CourseFeedback cf WHERE cf.userId.userid = :userid")
     List<CourseFeedback> findByUserId (@Param("userid") Long userid);
-
 
 
 }
