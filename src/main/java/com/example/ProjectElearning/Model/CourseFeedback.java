@@ -2,12 +2,14 @@ package com.example.ProjectElearning.Model;
 
 
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
+
 
 
 @Entity
@@ -20,6 +22,7 @@ public class CourseFeedback {
 
     @Column(nullable = false, length = 100)
     private String feedback;
+
 
 
     @JsonBackReference("course-feedback")
@@ -36,6 +39,7 @@ public class CourseFeedback {
     public CourseFeedback(Long feedBackId, String feedback) {
         this.feedBackId = feedBackId;
         this.feedback = feedback;
+
 
 
     }
@@ -91,5 +95,6 @@ public class CourseFeedback {
 //    public void setUser(User user) {
 //        this.user = user;
 //    }
+
 }
 
