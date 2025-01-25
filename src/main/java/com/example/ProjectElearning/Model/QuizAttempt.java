@@ -27,7 +27,6 @@ public class QuizAttempt {
 
     private int score;
 
-    private boolean isPassed;
 
     public Long getAttemptId() {
         return attemptId;
@@ -55,13 +54,7 @@ public class QuizAttempt {
         this.score = score;
     }
 
-    public boolean isPassed() {
-        return isPassed;
-    }
 
-    public void setPassed(boolean passed) {
-        isPassed = passed;
-    }
 
     public Quiz getQuizAttempt() {
         return quizAttempt;

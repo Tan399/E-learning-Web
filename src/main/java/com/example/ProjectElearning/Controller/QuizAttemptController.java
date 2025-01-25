@@ -2,10 +2,15 @@ package com.example.ProjectElearning.Controller;
 
 
 import com.example.ProjectElearning.Mapperr.QuizAttemptMapper;
+import com.example.ProjectElearning.Model.Quiz;
 import com.example.ProjectElearning.Model.QuizAttempt;
 import com.example.ProjectElearning.Model.QuizAttemptResponseDTO;
+import com.example.ProjectElearning.Model.User;
+import com.example.ProjectElearning.Service.CourseService;
 import com.example.ProjectElearning.Service.QuizAttemptService;
 
+import com.example.ProjectElearning.Service.QuizService;
+import com.example.ProjectElearning.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +25,11 @@ public class QuizAttemptController {
 
     @Autowired
     private QuizAttemptService quizAttemptService;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private QuizService quizService;
 
 
     @GetMapping
@@ -43,7 +53,13 @@ public class QuizAttemptController {
 
 
     @PostMapping
-    public ResponseEntity<QuizAttemptResponseDTO> createQuizAttempt(@RequestBody QuizAttempt quizAttempt) {
+    public ResponseEntity<QuizAttemptResponseDTO> createQuizAttempt(@RequestBody QuizAttemptResponseDTO quizAttemptResponseDTO) {
+        QuizAttempt quizAttempt=new QuizAttempt();
+        User user=userService.getUserById(quizAttemptResponseDTO.getUserId());
+        Quiz quiz=quizService.getQuizById(quizAttemptResponseDTO.getQuizId());
+        quizAttempt.setQuizAttempt(quiz);
+        quizAttempt.setUser(user);
+        quizAttempt.setScore(quizAttemptResponseDTO.getScore());
         QuizAttempt savedAttempt = quizAttemptService.saveQuizAttempt(quizAttempt);
         return ResponseEntity.status(HttpStatus.CREATED).body(QuizAttemptMapper.toQuizAttemptResponseDTO(savedAttempt));
     }
