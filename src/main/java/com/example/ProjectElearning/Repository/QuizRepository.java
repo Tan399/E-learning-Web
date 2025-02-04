@@ -1,0 +1,21 @@
+package com.example.ProjectElearning.Repository;
+
+import com.example.ProjectElearning.Model.Quiz;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+
+@Repository
+public interface QuizRepository extends JpaRepository<Quiz, Long> {
+    List<Quiz> findByCourse_Courseid(Long courseId);
+    Quiz findByQuizId(Long id);
+//    Quiz findByTitle(String title);
+//
+//
+//    @Query(nativeQuery = true,
+//            value= "select * from Quiz  where course=:id")
+//    Quiz findByCourse(Long id);
+}
