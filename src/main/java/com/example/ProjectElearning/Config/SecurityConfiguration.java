@@ -53,15 +53,21 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests((requests) ->
                 requests.requestMatchers(HttpMethod.OPTIONS, "**").permitAll()
-                        .requestMatchers("/login", "/register/**","/api/user-types","/api/coursecategory").permitAll()
-                        .requestMatchers("secure/instructor/**").hasAuthority("INSTRUCTOR")
-                        .requestMatchers("secure/user/**").hasAuthority("USER")
+                        .requestMatchers( "/login", "/register/**","/api/user-types","/api/coursecategory").permitAll()
+                        .requestMatchers("/secure/instructor/api/enrollments").hasAnyAuthority("USER","INSTRUCTOR")
+                        .requestMatchers(HttpMethod.POST,"/secure/instructor/api/coursefeedback").hasAnyAuthority("USER","INSTRUCTOR")
+                        .requestMatchers(HttpMethod.GET,"/secure/instructor/**").hasAnyAuthority("USER","INSTRUCTOR")
+                        .requestMatchers("/secure/instructor/**").hasAuthority("INSTRUCTOR")
+                        .requestMatchers(HttpMethod.POST,"/api/payments").hasAnyAuthority("USER")
+                        .requestMatchers(HttpMethod.GET,"/api/payments").hasAnyAuthority("INSTRUCTOR")
+                        .requestMatchers("/secure/user/**").hasAuthority("USER")
+
                        .anyRequest().authenticated());
-//        http.formLogin(withDefaults());
+
 
         http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-//        http.httpBasic(withDefaults());
+
         http.userDetailsService(userDetailsService);
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
@@ -78,14 +84,5 @@ public class SecurityConfiguration {
         return configuration.getAuthenticationManager();
     }
 
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource(){
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-//        configuration.setAllowedMethods(List.of("GET","PUT","OPTIONS","POST","DELETE"));
-//        configuration.setAllowedHeaders(List.of("Authorization"));
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
+
 }

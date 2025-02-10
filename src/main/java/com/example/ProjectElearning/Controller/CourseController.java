@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/courses")
+@RequestMapping("secure/instructor/api/courses")
 public class CourseController {
 
     @Autowired
@@ -146,7 +146,7 @@ public class CourseController {
                     courseDTO.setCourseid(existingCourse.getCourseid());
                     courseDTO.setPrice(existingCourse.getPrice());
                     courseDTO.setDuration(existingCourse.getDuration());
-//                    courseDTO.setCourseImage(existingCourse.getCourseImage());
+
                     courseDTO.setVideoUrl(existingCourse.getVideoUrl());
                     courseDTO.setEnrolledCount(er.getEnrolledUserCount(existingCourse.getCourseid()));
                     return courseDTO;
@@ -200,7 +200,7 @@ public class CourseController {
             @RequestPart("CourseDTO") String courseDTO,
             @RequestPart(value = "file", required = false) MultipartFile file
     ) throws IOException {
-        // Process the course update logic
+
         Course existingCourse = courseService.getCourseById(id);
         CourseDTO dto = new ObjectMapper().readValue(courseDTO, CourseDTO.class);
 
@@ -219,7 +219,7 @@ public class CourseController {
 
         courseService.updateCourse(existingCourse);
 
-        // Return JSON instead of plain text
+
         Map<String, String> response = new HashMap<>();
         response.put("message", "Course updated successfully!");
         return new ResponseEntity<>(response, HttpStatus.OK);

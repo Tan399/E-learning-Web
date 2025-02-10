@@ -2,6 +2,7 @@ package com.example.ProjectElearning.Service;
 
 
 
+import com.example.ProjectElearning.Exception.AccessDeniedException;
 import com.example.ProjectElearning.Model.User;
 import com.example.ProjectElearning.Model.UserResponseDTO;
 import com.example.ProjectElearning.Model.UserType;
@@ -10,6 +11,7 @@ import com.example.ProjectElearning.Repository.UserTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -67,10 +69,20 @@ if(role.equals("USER")){
         System.out.println("email "+request.getEmail());
         System.out.println("username "+request.getUsername());
         System.out.println("password "+request.getPassword());
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
-        System.out.println("111");
+
+        try{
+            Authentication authentication= authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
+        }catch (Exception e){
+            throw new AccessDeniedException("Invalid Credentials");
+        }
+
+
+
+
+
+
         User user=userRepo.findByEmail(request.getUsername()).orElseThrow();
-        System.out.println("222");
+
         System.out.println("email"+user.getEmail());
         System.out.println("pass"+user.getPassword());
 
@@ -78,6 +90,9 @@ if(role.equals("USER")){
         System.out.println(token);
 
         return new AuthenticationResponse(token,user.getUserType().getType(),user.getUserid());
+
+
+
 
 
     }

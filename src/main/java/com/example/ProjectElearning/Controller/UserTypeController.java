@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/user-types")
 public class UserTypeController {
+
     @Autowired
     private UserTypeService userTypeService;
 

@@ -14,8 +14,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/enrollments")
+@RequestMapping("secure/instructor/api/enrollments")
 public class EnrollmentController {
+
     @Autowired
     private EnrollmentService enrollmentService;
 
