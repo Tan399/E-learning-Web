@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/quizzes")
+@RequestMapping("secure/instructor/api/quizzes")
 public class QuizController {
     @Autowired
     private QuizService quizService;
@@ -41,11 +41,5 @@ public class QuizController {
     public ResponseEntity<Quiz> getQuizzesByCourse(@PathVariable Long courseId) {
         return ResponseEntity.ok(quizService.getQuizzesByCourse(courseId));
     }
-
-
-
-
-
-
 
 }

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/coursefeedback")
+@RequestMapping("secure/instructor/api/coursefeedback")
 public class CourseFeedbackController {
 
     @Autowired

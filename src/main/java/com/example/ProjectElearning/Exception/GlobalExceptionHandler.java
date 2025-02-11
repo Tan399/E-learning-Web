@@ -9,11 +9,29 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.security.sasl.AuthenticationException;
 import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Map<String, String>> handleAccessDeniedException(AccessDeniedException ex) {
+        Map<String, String> response = new HashMap<>();
+        response.put("error", "Unauthorized access");
+        response.put("message", "Invalid Credentials.");
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Map<String, String>> handleAccessDeniedException2(AccessDeniedException ex) {
+        Map<String, String> response = new HashMap<>();
+        response.put("error", "Unauthorized access");
+        response.put("message", "Invalid Credentials.");
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+    }
 
     @ExceptionHandler(QuizAlreadyAttemptedException.class)
     public ResponseEntity<String> handleQuizAlreadyAttempted(QuizAlreadyAttemptedException ex) {

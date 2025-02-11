@@ -12,10 +12,5 @@ import java.util.List;
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
     List<Quiz> findByCourse_Courseid(Long courseId);
     Quiz findByQuizId(Long id);
-//    Quiz findByTitle(String title);
-//
-//
-//    @Query(nativeQuery = true,
-//            value= "select * from Quiz  where course=:id")
-//    Quiz findByCourse(Long id);
+
 }
