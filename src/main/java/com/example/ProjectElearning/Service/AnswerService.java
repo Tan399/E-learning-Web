@@ -20,22 +20,5 @@ public class AnswerService {
     public List<Answer> getAnswersByQuestion(Long questionId) {
         return answerRepository.findByQuestion_QuestionId(questionId);
     }
-//    @Autowired
-//    private AnswerRepository answerRepository;
-//
-//    public List<Answer> getAllAnswers() {
-//        return answerRepository.findAll();
-//    }
-//
-//    public Answer getAnswerById(Long id) {
-//        return answerRepository.findById(id).orElse(null);
-//    }
-//
-//    public Answer createAnswer(Answer answer) {
-//        return answerRepository.save(answer);
-//    }
-//
-//    public void deleteAnswer(Long id) {
-//        answerRepository.deleteById(id);
-//    }
+
 }

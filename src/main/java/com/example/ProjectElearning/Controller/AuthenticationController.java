@@ -35,7 +35,7 @@ public class AuthenticationController {
     public ResponseEntity<UserResponseDTO> register(@PathVariable String role, @RequestBody User request){
         Optional<User> user=userRepository.findByEmail(request.getEmail());
         if(user.isPresent()){
-            System.out.println("email validtor");
+
             throw new ValidationException("Email already exists");
 
         }

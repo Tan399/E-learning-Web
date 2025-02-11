@@ -17,12 +17,7 @@ public interface QuizAttemptRepository extends JpaRepository<QuizAttempt, Long> 
     List<QuizAttempt> findByUser_Userid(Long userId);
     List<QuizAttempt> findByQuiz_QuizId(Long quizId);
     Optional<QuizAttempt> findByUserAndQuiz(User user, Quiz quiz);
-//    @Query("SELECT at FROM QuizAttempt at WHERE at.user.id = :userid")
-//    List<QuizAttempt> findByUserId(@Param("userid") Long userid);
-//
-//
-//    @Query("SELECT at FROM QuizAttempt at WHERE at.quizAttempt.quizId = :quizid")
-//    List<QuizAttempt> findByQuizId(@Param("quizid") Long quizid);
+
 
     @Query("SELECT qa FROM QuizAttempt qa " +
             "JOIN qa.quiz q " +

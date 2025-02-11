@@ -26,6 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,31 +48,56 @@ public class SecurityConfiguration {
 
 
     @Bean
+
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
+
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+
         http.cors(Customizer.withDefaults());
+
         http.csrf(AbstractHttpConfigurer::disable);
+
+        http.httpBasic(Customizer.withDefaults());
+
         http.authorizeHttpRequests((requests) ->
+
                 requests.requestMatchers(HttpMethod.OPTIONS, "**").permitAll()
-                        .requestMatchers( "/login", "/register/**","/api/user-types","/api/coursecategory").permitAll()
-                        .requestMatchers("/secure/instructor/api/enrollments").hasAnyAuthority("USER","INSTRUCTOR")
-                        .requestMatchers(HttpMethod.POST,"/secure/instructor/api/coursefeedback").hasAnyAuthority("USER","INSTRUCTOR")
-                        .requestMatchers(HttpMethod.GET,"/secure/instructor/**").hasAnyAuthority("USER","INSTRUCTOR")
+
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
+                        .requestMatchers("/login", "/register/**", "/api/user-types", "/api/coursecategory").permitAll()
+
+                        .requestMatchers("/secure/instructor/api/enrollments").hasAnyAuthority("USER", "INSTRUCTOR")
+
+                        .requestMatchers(HttpMethod.POST, "/secure/instructor/api/coursefeedback").hasAnyAuthority("USER", "INSTRUCTOR")
+
+                        .requestMatchers(HttpMethod.GET, "/secure/instructor/**").hasAnyAuthority("USER", "INSTRUCTOR")
+
                         .requestMatchers("/secure/instructor/**").hasAuthority("INSTRUCTOR")
-                        .requestMatchers(HttpMethod.POST,"/api/payments").hasAnyAuthority("USER")
-                        .requestMatchers(HttpMethod.GET,"/api/payments").hasAnyAuthority("INSTRUCTOR")
+
+                        .requestMatchers(HttpMethod.POST, "/api/payments").hasAnyAuthority("USER")
+
+                        .requestMatchers(HttpMethod.GET, "/api/payments").hasAnyAuthority("INSTRUCTOR")
+
                         .requestMatchers("/secure/user/**").hasAuthority("USER")
 
-                       .anyRequest().authenticated());
+                        .anyRequest().authenticated());
 
-
-        http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.userDetailsService(userDetailsService);
+
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
+
     }
+
 
 
     @Bean
@@ -83,6 +109,10 @@ public class SecurityConfiguration {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
+
+
+
+
 
 
 }

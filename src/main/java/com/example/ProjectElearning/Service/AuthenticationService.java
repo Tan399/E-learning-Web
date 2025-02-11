@@ -45,7 +45,7 @@ if(role.equals("USER")){
 }
 
         UserType userType=userTypeRepository.findById(id).get();
-//        System.out.println(userType.getType());
+
         User user1=new User();
         user1.setFirstname(user.getFirstname());
         user1.setLastname(user.getLastname());

@@ -11,5 +11,5 @@ import java.util.List;
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     List<Question> findByQuiz_QuizId(Long quizId);
-//    Question findByQuestionText(String text);
+
 }

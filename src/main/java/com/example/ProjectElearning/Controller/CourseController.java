@@ -45,12 +45,12 @@ public class CourseController {
             @RequestPart("CourseDTO") CourseDTO courseDTO,
             @RequestPart("file") MultipartFile file
     ) throws IOException {
-        System.out.println("entered upload");
+
         Course course = new Course();
-        System.out.println("course name  "+courseDTO.getCoursename());
+
         User instructor = userService.getUserById(courseDTO.getInstructorId());
         CourseCategory category = courseCategoryService.getCategoryById(courseDTO.getCategoryId());
-        System.out.println("category id "+courseDTO.getCategoryId());
+
         course.setCoursename(courseDTO.getCoursename());
         course.setDescription(courseDTO.getDescription());
         course.setLevel(courseDTO.getLevel());
@@ -113,7 +113,7 @@ public class CourseController {
     public ResponseEntity<List<CourseDetails>> getAllCourses() {
         List<CourseDetails> courses = courseService.getAllCourses().stream().map((existingCourse)->{
             CourseDetails courseDTO=new CourseDetails();
-            System.out.println("entered getMethod");
+
             courseDTO.setCoursename(existingCourse.getCoursename());
             courseDTO.setDescription(existingCourse.getDescription());
             courseDTO.setLevel(existingCourse.getLevel());
@@ -133,7 +133,7 @@ public class CourseController {
 
     @GetMapping("instructor/{id}")
     public ResponseEntity<List<CourseResponseDTO>> getCoursesByInstructorId(@PathVariable Long id) {
-        System.out.println("instructor aaala");
+
         List<CourseResponseDTO> courses = courseService.getAllCourses().stream()
                 .filter(existingCourse -> existingCourse.getInstructorId().getUserid().equals(id))
                 .map(existingCourse -> {

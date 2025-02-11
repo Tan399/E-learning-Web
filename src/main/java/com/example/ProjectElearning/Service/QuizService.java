@@ -81,99 +81,15 @@ public class QuizService {
     }
 
 
-
-
     public Quiz getQuizzesByCourse(Long courseId) {
 
-        try{
+        try {
             Quiz quiz = quizRepository.findByCourse_Courseid(courseId).get(0);
             return quiz;
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new ResourceNotFoundException("No quiz Available for the Course");
         }
 
 
-
-//        List<QuizAttemptDTO2> quizAttemptDTOs = quiz.getQuizAttemptsDTO2();
-//
-//        quiz.setQuizAttemptsDTO2(quizAttemptDTOs);
-
-
     }
-//    @Autowired
-//    private QuizRepository quizRepository;
-//
-//    @Autowired
-//    private QuestionRepository questionRepository;
-//
-//    @Autowired
-//    private AnswerRepository answerRepository;
-//
-//
-//
-//
-//    public QuizDTO getQuiz(Long quizId) {
-//        Quiz quiz = quizRepository.findById(quizId).orElseThrow();
-//
-//        QuizDTO quizDTO = new QuizDTO();
-//        quizDTO.setTitle(quiz.getTitle());
-//        quizDTO.setDescription(quiz.getDescription());
-//
-//        List<QuestionDTO> questionDTOs = new ArrayList<>();
-//        quiz.getQuestions().forEach(question -> {
-//            QuestionDTO questionDTO = new QuestionDTO();
-//            questionDTO.setQuestionText(question.getQuestionText());
-//            questionDTO.setAnswer(new AnswerDTO(question.getAnswers().getAnswerText()));
-//            questionDTOs.add(questionDTO);
-//        });
-//        quizDTO.setQuestions(questionDTOs);
-//
-//        return quizDTO;
-//    }
-//
-//
-//
-//    public List<Quiz> getAllQuizzes() {
-//        return quizRepository.findAll();
-//    }
-//
-//    public Quiz getQuizById(Long id) {
-//        return quizRepository.findById(id).orElse(null);
-//    }
-//
-//    public Quiz getQuizByTitle(String title) {
-//        return quizRepository.findByTitle(title);
-//    }
-//
-//    public Quiz createQuiz(Quiz quiz) {
-//        return quizRepository.save(quiz);
-//    }
-//
-//    public void deleteQuiz(Long id) {
-//        quizRepository.deleteById(id);
-//    }
-//
-//    public Quiz findQuizByCourseId(Long courseId) {
-//        return quizRepository.findByCourse(courseId);
-//    }
-//
-//
-//    public Question createQuestion(Question question) {
-//            return questionRepository.save(question);
-//        }
-//
-//        public Answer createAnswer(Answer answer) {
-//            return answerRepository.save(answer);
-//        }
-//
-//
-//
-//        public Question getQuestionByText(String text) {
-//            return questionRepository.findByQuestionText(text);
-//        }
-//
-//        public void updateQuiz(Quiz quiz) {
-//            quizRepository.save(quiz);
-//        }
-
 }
