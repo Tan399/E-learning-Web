@@ -1,17 +1,26 @@
 package com.example.ProjectElearning.Controller;
 
-import com.example.ProjectElearning.Model.User;
-import com.example.ProjectElearning.Model.UserDTO;
-import com.example.ProjectElearning.Model.UserType;
+import com.example.ProjectElearning.Exception.AccessDeniedException;
+import com.example.ProjectElearning.Model.*;
 import com.example.ProjectElearning.Repository.UserRepository;
 import com.example.ProjectElearning.Repository.UserTypeRepository;
 import com.example.ProjectElearning.Service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +35,14 @@ public class UserController {
     UserRepository userRepository;
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordEncoder encoderr;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+
 
 
     @PostMapping("/{id}")
@@ -60,9 +77,19 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-
-        return ResponseEntity.ok(userService.getUserById(id));
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
+        System.out.println("id hai "+id);
+        User user=userService.getUserById(id);
+        UserResponseDTO userResponseDTO=new UserResponseDTO(
+                user.getFirstname(),
+                user.getLastname(),
+                user.getEmail(),
+                user.getGender(),
+                user.getUserType().getType()
+        );
+        userResponseDTO.setPassword(user.getPassword());
+        userResponseDTO.setImage(user.getImage());
+        return ResponseEntity.ok(userResponseDTO);
     }
 
     @GetMapping("/email/{email}")
@@ -71,11 +98,47 @@ public class UserController {
     }
 
 
-    @PutMapping("/{id}")
-    public  ResponseEntity<User> updateUser(@PathVariable Long id,@Valid @RequestBody UserDTO userDTO) {
+//    @PutMapping("/{id}")
+//    public  ResponseEntity<User> updateUser(@PathVariable Long id,@Valid @RequestBody UserDTO userDTO) {
+//
+//        User updatedUser = userService.updateUser(id,userDTO);
+//        return updatedUser != null ? new ResponseEntity<User>(updatedUser, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
 
-        User updatedUser = userService.updateUser(id,userDTO);
+
+    @PutMapping("/{id}")
+    public  ResponseEntity<User> updateUser2( @PathVariable Long id,
+                                              @RequestPart("userInfo") String userInfo,
+                                              @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
+
+
+        User user = userRepository.findByUserid(id);
+        UserRequestDTO dto = new ObjectMapper().readValue(userInfo, UserRequestDTO.class);
+        user.setFirstname(dto.getFirstName());
+        user.setLastname(dto.getLastName());
+        user.setGender(dto.getGender());
+
+
+        if (file != null && !file.isEmpty()) {
+            user.setImage(file.getBytes());
+        }
+
+        User updatedUser = userRepository.save(user);
         return updatedUser != null ? new ResponseEntity<User>(updatedUser, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/{id}/image")
+    public ResponseEntity<byte[]> getCourseImage(@PathVariable Long id) {
+        User course = userService.getUserById(id);
+        byte[] image = course.getImage();
+
+        if (image == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(image);
     }
 
 
@@ -85,5 +148,25 @@ public class UserController {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
+    }
+
+    @PutMapping("/password/{id}")
+    public ResponseEntity<HttpStatus> updatePassword(@PathVariable Long id,@RequestBody PasswordDTO passwordDTO){
+        User user=userRepository.findByUserid(id);
+        try{
+            Authentication authentication= authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),passwordDTO.getCurrentPassword()));
+        }catch (Exception e){
+            throw new AccessDeniedException("Incorrect Current Password!!");
+        }
+
+        System.out.println("pass"+passwordDTO.getCurrentPassword());
+        System.out.println("current "+user.getPassword());
+        System.out.println("new "+encoderr.encode(passwordDTO.getCurrentPassword()));
+
+            user.setPassword(encoderr.encode(passwordDTO.getNewPassword()));
+            userRepository.save(user);
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
