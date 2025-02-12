@@ -1,6 +1,7 @@
 package com.example.ProjectElearning.Model;
 
 import com.example.ProjectElearning.Validator.UniqueEmail;
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -34,6 +35,8 @@ public class UserDTO {
 
     @NotBlank(message = "Gender is required")
     private String gender;
+
+
 
     public UserDTO(String firstname, String lastname, String email, String password, String gender) {
         this.firstname = firstname;
@@ -85,4 +88,6 @@ public class UserDTO {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+
 }

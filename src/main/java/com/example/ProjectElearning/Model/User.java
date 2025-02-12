@@ -30,6 +30,17 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String gender;
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    @Lob
+    private byte[] image;
 //    @Enumerated(value = EnumType.STRING)
 //    private Role userTypee;
 

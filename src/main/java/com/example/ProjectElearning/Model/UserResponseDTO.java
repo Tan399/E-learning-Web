@@ -1,12 +1,18 @@
 package com.example.ProjectElearning.Model;
 
+import jakarta.persistence.Lob;
+
 public class UserResponseDTO {
     private String firstname;
     private String lastname;
     private String email;
     private String gender;
     private String userType;
-    private String error;
+    private  String password;
+
+
+    @Lob
+    private byte[] image;
 
     public UserResponseDTO(String firstname, String lastname, String email, String gender, String userType) {
         this.firstname = firstname;
@@ -59,11 +65,21 @@ public class UserResponseDTO {
         this.userType = userType;
     }
 
-    public String getError() {
-        return error;
+
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
