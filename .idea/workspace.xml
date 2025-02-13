@@ -4,22 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d02f665-e239-4fd0-a163-bcfd80838739" name="Changes" comment="removed commented code and improved the structure">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/PasswordDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/UserRequestDTO.java" afterDir="false" />
+    <list default="true" id="4d02f665-e239-4fd0-a163-bcfd80838739" name="Changes" comment="improved code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Config/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Controller/PaymentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/UserResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/UserResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/CoursePayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/CoursePayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Repository/CourseCategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Repository/CourseCategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Config/SecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Config/SecurityConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/AuthenticationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/AuthenticationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/CourseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/CourseController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/PaymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/PaymentController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Model/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Model/UserDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Model/UserResponseDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Model/UserResponseDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Service/QuizService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Service/QuizService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Model/CoursePayment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Model/CoursePayment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Repository/CourseCategoryRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Repository/CourseCategoryRepository.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +97,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739198966305</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="removed commented code and improved the structure">
+      <option name="closed" value="true" />
+      <created>1739372066059</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1739372066059</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -115,6 +121,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="removed commented code and improved the structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed commented code and improved the structure" />
+    <MESSAGE value="improved code" />
+    <option name="LAST_COMMIT_MESSAGE" value="improved code" />
   </component>
 </project>

@@ -70,23 +70,26 @@ public class SecurityConfiguration {
                                 "/swagger-resources/**",
                                 "/webjars/**"
                         ).permitAll()
-                        .requestMatchers("/login", "/register/**", "/api/user-types", "/api/coursecategory").permitAll()
+//                        .requestMatchers("/login", "/register/**", "/api/user-types", "/api/coursecategory").permitAll()
+//
+//                        .requestMatchers("/secure/instructor/api/enrollments").hasAnyAuthority("USER", "INSTRUCTOR")
+//
+//                        .requestMatchers(HttpMethod.POST, "/secure/instructor/api/coursefeedback").hasAnyAuthority("USER", "INSTRUCTOR")
+//
+//                        .requestMatchers(HttpMethod.GET, "/secure/instructor/**").hasAnyAuthority("USER", "INSTRUCTOR")
+//
+//                        .requestMatchers("/secure/instructor/**").hasAuthority("INSTRUCTOR")
+//
+//                        .requestMatchers(HttpMethod.POST, "/api/payments").hasAnyAuthority("USER")
+//
+//                        .requestMatchers(HttpMethod.GET, "/api/payments").hasAnyAuthority("INSTRUCTOR")
+//
+//                        .requestMatchers("/secure/user/**").hasAuthority("USER")
+//
+//                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
 
-                        .requestMatchers("/secure/instructor/api/enrollments").hasAnyAuthority("USER", "INSTRUCTOR")
-
-                        .requestMatchers(HttpMethod.POST, "/secure/instructor/api/coursefeedback").hasAnyAuthority("USER", "INSTRUCTOR")
-
-                        .requestMatchers(HttpMethod.GET, "/secure/instructor/**").hasAnyAuthority("USER", "INSTRUCTOR")
-
-                        .requestMatchers("/secure/instructor/**").hasAuthority("INSTRUCTOR")
-
-                        .requestMatchers(HttpMethod.POST, "/api/payments").hasAnyAuthority("USER")
-
-                        .requestMatchers(HttpMethod.GET, "/api/payments").hasAnyAuthority("INSTRUCTOR")
-
-                        .requestMatchers("/secure/user/**").hasAuthority("USER")
-
-                        .anyRequest().authenticated());
+        );
 
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

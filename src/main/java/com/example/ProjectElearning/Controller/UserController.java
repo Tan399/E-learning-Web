@@ -76,21 +76,31 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+//    @GetMapping("/{id}")
+//    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
+//        System.out.println("id hai "+id);
+//        User user=userService.getUserById(id);
+//        UserResponseDTO userResponseDTO=new UserResponseDTO(
+//                user.getFirstname(),
+//                user.getLastname(),
+//                user.getEmail(),
+//                user.getGender(),
+//                user.getUserType().getType()
+//        );
+//        userResponseDTO.setPassword(user.getPassword());
+//        userResponseDTO.setImage(user.getImage());
+//        return ResponseEntity.ok(userResponseDTO);
+//    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
-        System.out.println("id hai "+id);
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+
         User user=userService.getUserById(id);
-        UserResponseDTO userResponseDTO=new UserResponseDTO(
-                user.getFirstname(),
-                user.getLastname(),
-                user.getEmail(),
-                user.getGender(),
-                user.getUserType().getType()
-        );
-        userResponseDTO.setPassword(user.getPassword());
-        userResponseDTO.setImage(user.getImage());
-        return ResponseEntity.ok(userResponseDTO);
+
+        return ResponseEntity.ok(user);
     }
+
+
 
     @GetMapping("/email/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {

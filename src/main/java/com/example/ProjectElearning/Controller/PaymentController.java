@@ -2,6 +2,7 @@ package com.example.ProjectElearning.Controller;
 
 import com.example.ProjectElearning.Exception.ResourceNotFoundException;
 import com.example.ProjectElearning.Model.*;
+import com.example.ProjectElearning.Repository.CourseCategoryRepository;
 import com.example.ProjectElearning.Repository.PaymentRepository;
 import com.example.ProjectElearning.Service.CourseService;
 import com.example.ProjectElearning.Service.PaymentService;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,6 +27,9 @@ public class PaymentController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CourseCategoryRepository courseCategoryRepository;
 
     @Autowired
     private CourseService courseService;
@@ -81,7 +86,8 @@ public class PaymentController {
     @GetMapping("/instructor/{instructorId}/course-payments")
     public ResponseEntity<List<CoursePayment>> getPaymentsForInstructorCourses(@PathVariable Long instructorId) {
         List<CoursePayment> cp=paymentRepository.findPaymentsByInstructor(instructorId).stream().map((payment)->{
-            return new CoursePayment(payment.getCourse().getCoursename(),payment.getUser().getFirstname()+" "+payment.getUser().getLastname(),payment.getAmount(),payment.getPaymentDate());
+
+            return new CoursePayment(payment.getCourse().getCoursename(),payment.getUser().getFirstname()+" "+payment.getUser().getLastname(),payment.getAmount(),payment.getPaymentDate(),payment.getCourse().getCategoryId().getTitle());
         }).collect(Collectors.toList());
 
         return ResponseEntity.ok(cp);

@@ -8,12 +8,14 @@ public class CoursePayment {
      String  studentName;
     Double paymentAmount;
      Date paymentDate;
+     String courseCategory;
 
-    public CoursePayment(String courseName, String studentName, Double paymentAmount, Date paymentDate) {
+    public CoursePayment(String courseName, String studentName, Double paymentAmount, Date paymentDate,String courseCategory) {
         this.courseName = courseName;
         this.studentName = studentName;
         this.paymentAmount = paymentAmount;
         this.paymentDate = paymentDate;
+        this.courseCategory=courseCategory;
     }
 
     public String getCourseName() {
@@ -46,5 +48,13 @@ public class CoursePayment {
 
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
+    }
+
+    public String getCourseCategory() {
+        return courseCategory;
+    }
+
+    public void setCourseCategory(String courseCategory) {
+        this.courseCategory = courseCategory;
     }
 }
