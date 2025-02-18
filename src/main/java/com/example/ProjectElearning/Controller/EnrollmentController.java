@@ -8,6 +8,8 @@ import com.example.ProjectElearning.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +23,9 @@ public class EnrollmentController {
     private EnrollmentService enrollmentService;
 
     @Autowired
+    private JavaMailSender javaMailSender;
+
+    @Autowired
     private EnrollmentRepository enrollmentRepository;
 
     @Autowired
@@ -28,6 +33,8 @@ public class EnrollmentController {
 
     @Autowired
     private CourseService courseService;
+
+
 
 
     @GetMapping("/by-instructor/{instructorId}")
@@ -93,16 +100,15 @@ public class EnrollmentController {
         enrollment.setStatus(enrollmentDTO.getStatus());
         User user=userService.getUserById(enrollmentDTO.getUserId());
         Course course=courseService.getCourseById(enrollmentDTO.getCourseId());
+        enrollmentService.sendmail(new temp(course.getInstructorId().getUsername(),"User has enrolled",user.getFirstname()+" "+user.getLastname()+ " has enrolled to the course "+course.getCoursename()));
         enrollment.setCourse(course);
         enrollment.setUser(user);
         user.getEnrollments().add(enrollment);
-
-
-
-
-
         return new ResponseEntity<Enrollment>( enrollmentService.createEnrollment(enrollment), HttpStatus.CREATED);
     }
+
+
+
 
 
 

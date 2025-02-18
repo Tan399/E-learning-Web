@@ -169,9 +169,7 @@ public class UserController {
             throw new AccessDeniedException("Incorrect Current Password!!");
         }
 
-        System.out.println("pass"+passwordDTO.getCurrentPassword());
-        System.out.println("current "+user.getPassword());
-        System.out.println("new "+encoderr.encode(passwordDTO.getCurrentPassword()));
+
 
             user.setPassword(encoderr.encode(passwordDTO.getNewPassword()));
             userRepository.save(user);

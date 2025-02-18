@@ -5,19 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d02f665-e239-4fd0-a163-bcfd80838739" name="Changes" comment="improved code">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Config/ChatConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Controller/MessageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/temp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Config/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Controller/EnrollmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Controller/EnrollmentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/CoursePayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Model/CoursePayment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Repository/CourseCategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Repository/CourseCategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Service/EnrollmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjectElearning/Service/EnrollmentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Config/SecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Config/SecurityConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/PaymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/PaymentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/EnrollmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/EnrollmentController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Model/CoursePayment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Model/CoursePayment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Repository/CourseCategoryRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Repository/CourseCategoryRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Service/CourseCategoryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjectElearning/Service/CourseCategoryService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +65,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;All-Done-Branch&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Tanmay.Jaiswal/Downloads/SpringBoot-elearn-10Feb/LEARNWITHME&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Tanmay.Jaiswal/Downloads/chatApp/chatApp&quot;
   }
 }</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
